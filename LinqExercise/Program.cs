@@ -46,7 +46,7 @@ namespace LinqExercise
 
             //TODO: Add an employee to the end of the list without using employees.Add()
             #endregion
-
+                       
 
             //TODO: Print the Sum of numbers
             Console.WriteLine($"{numbers.Sum()} - sum of numbers");
@@ -57,7 +57,7 @@ namespace LinqExercise
             //TODO: Order numbers in ascending order and print to the console
             sortAscendingPrint(numbers);
 
-            void sortAscendingPrint (int[] numbers)
+            void sortAscendingPrint(int[] numbers)
             {
                 IEnumerable<int> sortedNumbers = numbers.OrderBy(x => x);
 
@@ -99,13 +99,13 @@ namespace LinqExercise
 
             //TODO: Change the value at index 4 to your age, then print the numbers in decsending order
             Index4(numbers);
-            void Index4(int [] numbers)
+            void Index4(int[] numbers)
             {
-               if (numbers.Length >=5)
+                if (numbers.Length >= 5)
                 {
                     numbers[4] = 42;
                 }
-               var numbersDesc = numbers.OrderByDescending(x => x);
+                var numbersDesc = numbers.OrderByDescending(x => x);
 
                 Console.WriteLine("==== Printing a list of numbers after modifying the array====");
                 foreach (var number in numbersDesc)
@@ -114,14 +114,14 @@ namespace LinqExercise
                 }
                 Console.WriteLine("==== Done printing list of numbers after modifying the array ====");
             }
-                        
+
             var employees = CreateEmployees();
 
             //TODO: Print all the employees' FullName properties to the console only if their FirstName starts with a C OR an S and order this in ascending order by FirstName.
             employeeNamesWhere(employees);
             void employeeNamesWhere(List<Employee> employees)
             {
-                var csEmployees = employees.Where(name => (name.FirstName.StartsWith("c") || name.FirstName.StartsWith("C") || name.FirstName.StartsWith("S") || name.FirstName.StartsWith("s")));                
+                var csEmployees = employees.Where(name => (name.FirstName.StartsWith("c") || name.FirstName.StartsWith("C") || name.FirstName.StartsWith("S") || name.FirstName.StartsWith("s")));
                 csEmployees.OrderByDescending(x => x.FirstName);
 
                 Console.WriteLine("==== Printing list of employees where first name is c or s ====");
@@ -133,15 +133,35 @@ namespace LinqExercise
 
             }
 
+
+
             //TODO: Print all the employees' FullName and Age who are over the age 26 to the console and order this by Age first and then by FirstName in the same result.
+            queryEmployeeOver26(employees);
+
+            void queryEmployeeOver26(List<Employee>employees)
+            { 
+                var queryResult = employees.Where(x => x.Age > 26).OrderBy(a => a.Age).ThenBy(f => f.FirstName);
+
+                Console.WriteLine("==== Printing list of employees who are over 26");
+                foreach (var employee in queryResult)
+                {
+                    Console.WriteLine($"{employee.FullName} {employee.Age}");
+                }
+                Console.WriteLine("==== Done printing list of employees who are over 26");
+            }
+
 
             //TODO: Print the Sum and then the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
+           queryEmployeeSumAvgYOE(employees);
+            void queryEmployeeSumAvgYOE(List<Employee> employees)
+            {
+                IEnumerable<Employee> queryResult = employees.Where(x => x.YearsOfExperience >= 10 && x.Age >35);
+                Console.WriteLine($"{queryResult.Sum(x => x.YearsOfExperience)}");
+                Console.WriteLine($"{queryResult.Average(x => x.YearsOfExperience)}");
+            }
 
             //TODO: Add an employee to the end of the list without using employees.Add()
-
-
-
-
+            employees = employees.Append(new Employee { FirstName = "Damien", LastName = "Young", Age = 42, YearsOfExperience = 1 }).ToList();
 
             Console.WriteLine();
 
@@ -166,5 +186,7 @@ namespace LinqExercise
             return employees;
         }
         #endregion
+
+       
     }
 }
