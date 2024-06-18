@@ -103,7 +103,7 @@ namespace LinqExercise
             {
                 if (numbers.Length >= 5)
                 {
-                    numbers[4] = 42;
+                    numbers[4] = 44;
                 }
                 var numbersDesc = numbers.OrderByDescending(x => x);
 
@@ -156,12 +156,12 @@ namespace LinqExercise
             void queryEmployeeSumAvgYOE(List<Employee> employees)
             {
                 IEnumerable<Employee> queryResult = employees.Where(x => x.YearsOfExperience >= 10 && x.Age >35);
-                Console.WriteLine($"{queryResult.Sum(x => x.YearsOfExperience)}");
-                Console.WriteLine($"{queryResult.Average(x => x.YearsOfExperience)}");
+                Console.WriteLine($"{queryResult.Sum(x => x.YearsOfExperience)} - Sum of YOE");
+                Console.WriteLine($"{queryResult.Average(x => x.YearsOfExperience)} - Average of YOE");
             }
 
             //TODO: Add an employee to the end of the list without using employees.Add()
-            employees = employees.Append(new Employee { FirstName = "Damien", LastName = "Young", Age = 42, YearsOfExperience = 1 }).ToList();
+            employees = employees.Append(new Employee { FirstName = "Damien", LastName = "Young", Age = 44, YearsOfExperience = 1 }).ToList();
 
             Console.WriteLine();
 
@@ -181,8 +181,7 @@ namespace LinqExercise
             employees.Add(new Employee("Big", "Boss", 23, 14));
             employees.Add(new Employee("Solid", "Snake", 18, 3));
             employees.Add(new Employee("Chris", "Redfield", 44, 7));
-            employees.Add(new Employee("Faye", "Valentine", 32, 10));
-
+            employees.Add(new Employee("Faye", "Valentine", 32, 10));            
             return employees;
         }
         #endregion
